@@ -20,10 +20,10 @@ public class Maze {
         }
     }
 
-    private Point2D getCoordinates(int index) {
+    private Position getCoordinates(int index) {
         int x = index / width;
         int y = index % width;
-        return new Point2D(x, y);
+        return new Position(x, y);
     }
 
     public Cell getCell(int row, int column) {
