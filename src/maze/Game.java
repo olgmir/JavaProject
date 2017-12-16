@@ -4,42 +4,30 @@ public class Game {
     public Maze maze;
     public Position position;
 
-    public Game(Maze maze, Position initialPostion) {
+    public Game(Maze maze, Position initialPosition) {
         this.maze = maze;
-        this.position = initialPostion;
+        this.position = initialPosition;
     }
 
     public void goUp() {
-        if(canGoUp()) {
+        if(maze.canGoUp(position)) {
             position.x--;
         }
 
     }
     public void goDown() {
-        if(canGoDown()) {
+        if(maze.canGoDown(position)) {
             position.x++;
         }
     }
     public void goRight() {
-        if(canGoRight()) {
+        if(maze.canGoRight(position)) {
             position.y++;
         }
     }
     public void goLeft() {
-        if(canGoLeft()) {
+        if(maze.canGoLeft(position)) {
             position.y--;
         }
-    }
-    public boolean canGoUp() {
-        return position.x != 0;
-    }
-    public boolean canGoDown() {
-        return position.x != maze.height - 1;
-    }
-    public boolean canGoRight() {
-        return position.y != maze.width - 1;
-    }
-    public boolean canGoLeft() {
-        return position.y != 0;
     }
 }

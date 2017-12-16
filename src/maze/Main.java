@@ -14,10 +14,6 @@ public class Main {
 
         Position position = new Position(4,3);
         Game game = new Game(maze, position);
-        System.out.println(game.canGoUp());
-        System.out.println(game.canGoDown());
-        System.out.println(game.canGoRight());
-        System.out.println(game.canGoLeft());
 
         game.goUp();
         System.out.println(game.position);

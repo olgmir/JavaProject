@@ -1,5 +1,7 @@
 package maze;
 
+import maze.sides.OpenSide;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -15,9 +17,16 @@ public class Maze {
         this.cells = new ArrayList<>(width*height);
         for(int i=0; i < height; i++) {
             for(int j=0; j < width; j++) {
-                cells.add(new Cell(i, j));
+                cells.add(new Cell(i, j, new OpenSide(), new OpenSide(), new OpenSide(), new OpenSide()));
             }
         }
+    }
+
+    public Maze(int width, int height, List<Cell> cells) {
+        assert width * height == cells.size();
+        this.width = width;
+        this.height = height;
+        this.cells = cells;
     }
 
     private Position getCoordinates(int index) {
@@ -28,6 +37,10 @@ public class Maze {
 
     public Cell getCell(int row, int column) {
         return this.cells.get(row * width + column);
+    }
+
+    public Cell getCell(Position pos) {
+        return getCell(pos.x, pos.y);
     }
 
     public Map<String, Cell> getNeighbors(int row, int column) {
@@ -58,10 +71,30 @@ public class Maze {
             result.put("Left", getCell(row, column - 1));
             result.put("Right", getCell(row, column + 1));
         }
-
-
         return result;
     }
+
+    public boolean canGoUp(Position pos) {
+        Cell cell = getCell(pos);
+        return cell.north.canGoThrough();
+    }
+
+    public boolean canGoDown(Position pos) {
+        Cell cell = getCell(pos);
+        return cell.south.canGoThrough();
+    }
+
+    public boolean canGoLeft(Position pos) {
+        Cell cell = getCell(pos);
+        return cell.west.canGoThrough();
+    }
+
+    public boolean canGoRight(Position pos) {
+        Cell cell = getCell(pos);
+        return cell.east.canGoThrough();
+    }
+
+
 
     public void printMaze() {
         for(int i=0; i < height; i++) {
