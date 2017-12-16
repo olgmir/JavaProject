@@ -1,52 +1,79 @@
 package maze;
 
-import maze.tools.Tool;
+import maze.actions.*;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class Game {
     public Maze maze;
-    public Position position;
-    public List<Tool> inventory;
+    public Player player;
+    public List<EnterCellAction> enterCellActions;
+    public List<LeaveCellAction> leaveCellActions;
 
     public Game(Maze maze, Position initialPosition) {
         this.maze = maze;
-        this.position = initialPosition;
-        this.inventory = new ArrayList<>();
+        this.player = new Player(initialPosition);
+
+        this.enterCellActions = new ArrayList<>();
+        this.enterCellActions.add(new PickUpTool());
+
+        this.leaveCellActions = new ArrayList<>();
+        this.leaveCellActions.add(new BreakWall());
+        this.leaveCellActions.add(new OpenDoor());
     }
 
     public void goUp() {
-        if(maze.canGoUp(position)) {
-            position.x--;
+        Cell currentCell = maze.getCell(player.getPosition());
+        for (LeaveCellAction action: leaveCellActions) {
+            action.doAction(player, currentCell, currentCell.north);
         }
-        if(maze.containsTool(position)) {
-            inventory.add(maze.getTool(position));
+        if(maze.canGoUp(player.getPosition())) {
+            player.getPosition().x--;
+        }
+        Cell newCell = maze.getCell(player.getPosition());
+        for (EnterCellAction action : enterCellActions) {
+            action.doAction(player, newCell);
         }
 
     }
     public void goDown() {
-        if(maze.canGoDown(position)) {
-            position.x++;
+        Cell currentCell = maze.getCell(player.getPosition());
+        for (LeaveCellAction action: leaveCellActions) {
+            action.doAction(player, currentCell, currentCell.south);
         }
-        if(maze.containsTool(position)) {
-            inventory.add(maze.getTool(position));
+        if(maze.canGoDown(player.getPosition())) {
+            player.getPosition().x++;
+        }
+        Cell newCell = maze.getCell(player.getPosition());
+        for (EnterCellAction action : enterCellActions) {
+            action.doAction(player, newCell);
         }
     }
     public void goRight() {
-        if(maze.canGoRight(position)) {
-            position.y++;
+        Cell currentCell = maze.getCell(player.getPosition());
+        for (LeaveCellAction action: leaveCellActions) {
+            action.doAction(player, currentCell, currentCell.east);
         }
-        if(maze.containsTool(position)) {
-            inventory.add(maze.getTool(position));
+        if(maze.canGoRight(player.getPosition())) {
+            player.getPosition().y++;
+        }
+        Cell newCell = maze.getCell(player.getPosition());
+        for (EnterCellAction action : enterCellActions) {
+            action.doAction(player, newCell);
         }
     }
     public void goLeft() {
-        if(maze.canGoLeft(position)) {
-            position.y--;
+        Cell currentCell = maze.getCell(player.getPosition());
+        for (LeaveCellAction action: leaveCellActions) {
+            action.doAction(player, currentCell, currentCell.west);
         }
-        if(maze.containsTool(position)) {
-            inventory.add(maze.getTool(position));
+        if(maze.canGoLeft(player.getPosition())) {
+            player.getPosition().y--;
+        }
+        Cell newCell = maze.getCell(player.getPosition());
+        for (EnterCellAction action : enterCellActions) {
+            action.doAction(player, newCell);
         }
     }
 }
