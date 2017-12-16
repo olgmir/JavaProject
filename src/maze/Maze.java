@@ -1,6 +1,8 @@
 package maze;
 
+import javafx.geometry.Pos;
 import maze.sides.OpenSide;
+import maze.tools.Tool;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -94,7 +96,13 @@ public class Maze {
         return cell.east.canGoThrough();
     }
 
+    public boolean containsTool(Position position) {
+        return getCell(position).containsTool();
+    }
 
+    public Tool getTool(Position position) {
+        return getCell(position).pickUpTool();
+    }
 
     public void printMaze() {
         for(int i=0; i < height; i++) {
