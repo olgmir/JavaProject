@@ -1,8 +1,8 @@
 package maze.tools;
 
-public class Key extends Tool {
+public class StartToken extends Tool {
     @Override
     public String toString() {
-        return "K";
+        return "S";
     }
 }

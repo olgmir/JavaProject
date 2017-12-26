@@ -11,9 +11,13 @@ public class Game {
     public Player player;
     public List<EnterCellAction> enterCellActions;
     public List<LeaveCellAction> leaveCellActions;
+    public Position initialPosition;
+    public Position endPosition;
 
-    public Game(Maze maze, Position initialPosition) {
+    public Game(Maze maze, Position initialPosition, Position endPosition) {
         this.maze = maze;
+        this.initialPosition = initialPosition;
+        this.endPosition = endPosition;
         this.player = new Player(initialPosition);
 
         this.enterCellActions = new ArrayList<>();
@@ -37,6 +41,9 @@ public class Game {
         for (EnterCellAction action : enterCellActions) {
             action.doAction(player, newCell);
         }
+        if (this.checkVictory()) {
+            System.out.println("Victory!");
+        }
 
     }
     public void goDown() {
@@ -52,6 +59,9 @@ public class Game {
         for (EnterCellAction action : enterCellActions) {
             action.doAction(player, newCell);
         }
+        if (this.checkVictory()) {
+            System.out.println("Victory!");
+        }
     }
     public void goRight() {
         Cell currentCell = maze.getCell(player.getPosition());
@@ -65,6 +75,9 @@ public class Game {
         Cell newCell = maze.getCell(player.getPosition());
         for (EnterCellAction action : enterCellActions) {
             action.doAction(player, newCell);
+        }
+        if (this.checkVictory()) {
+            System.out.println("Victory!");
         }
     }
     public void goLeft() {
@@ -80,5 +93,12 @@ public class Game {
         for (EnterCellAction action : enterCellActions) {
             action.doAction(player, newCell);
         }
+        if (this.checkVictory()) {
+            System.out.println("Victory!");
+        }
+    }
+
+    public boolean checkVictory() {
+        return player.getPosition().x == this.endPosition.x && player.getPosition().y == this.endPosition.y;
     }
 }

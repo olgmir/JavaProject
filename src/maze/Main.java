@@ -49,7 +49,7 @@ public class Main {
         Maze maze = MazeGenerator.fromLines(mazeLines);
         maze.printMaze();
 
-        Game game = new Game(maze, new Position(0, 0));
+        Game game = new Game(maze, maze.getStart().getPosition(), maze.getEnd().getPosition());
         System.out.println(game.maze.canGoRight(game.player.getPosition()));
         game.goDown();
         System.out.println(game.player.getPosition());
@@ -69,8 +69,7 @@ public class Main {
         Maze maze = new Maze(1, 4, cells);
 //        maze.printMaze();
 
-        Position position = new Position(0, 0);
-        Game game = new Game(maze, position);
+        Game game = new Game(maze, maze.getStart().getPosition(), maze.getEnd().getPosition());
 
         System.out.println(game.player.getPosition());
         System.out.println(game.player.getInventory());

@@ -5,6 +5,8 @@ public class ToolBuilder {
         switch (name) {
             case "key": return new Key();
             case "hammer": return new Hammer();
+            case "start": return new StartToken();
+            case "end": return new EndToken();
             default: return null;
         }
     }

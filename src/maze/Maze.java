@@ -112,4 +112,18 @@ public class Maze {
             System.out.println();
         }
     }
+
+    public Cell getStart() {
+        for(Cell cell: cells)
+            if(cell.isStart())
+                return cell;
+        return null;
+    }
+
+    public Cell getEnd() {
+        for(Cell cell: cells)
+            if(cell.isEnd())
+                return cell;
+        return null;
+    }
 }
