@@ -1,5 +1,6 @@
 package maze;
 
+import javafx.geometry.Pos;
 import maze.actions.*;
 
 import java.util.ArrayList;
@@ -29,7 +30,8 @@ public class Game {
             action.doAction(player, currentCell, currentCell.north);
         }
         if(maze.canGoUp(player.getPosition())) {
-            player.getPosition().x--;
+            Position oldPosition = player.getPosition();
+            player.updatePosition(oldPosition.x - 1, oldPosition.y);
         }
         Cell newCell = maze.getCell(player.getPosition());
         for (EnterCellAction action : enterCellActions) {
@@ -43,7 +45,8 @@ public class Game {
             action.doAction(player, currentCell, currentCell.south);
         }
         if(maze.canGoDown(player.getPosition())) {
-            player.getPosition().x++;
+            Position oldPosition = player.getPosition();
+            player.updatePosition(oldPosition.x + 1, oldPosition.y);
         }
         Cell newCell = maze.getCell(player.getPosition());
         for (EnterCellAction action : enterCellActions) {
@@ -56,7 +59,8 @@ public class Game {
             action.doAction(player, currentCell, currentCell.east);
         }
         if(maze.canGoRight(player.getPosition())) {
-            player.getPosition().y++;
+            Position oldPosition = player.getPosition();
+            player.updatePosition(oldPosition.x, oldPosition.y + 1);
         }
         Cell newCell = maze.getCell(player.getPosition());
         for (EnterCellAction action : enterCellActions) {
@@ -69,7 +73,8 @@ public class Game {
             action.doAction(player, currentCell, currentCell.west);
         }
         if(maze.canGoLeft(player.getPosition())) {
-            player.getPosition().y--;
+            Position oldPosition = player.getPosition();
+            player.updatePosition(oldPosition.x, oldPosition.y - 1);
         }
         Cell newCell = maze.getCell(player.getPosition());
         for (EnterCellAction action : enterCellActions) {

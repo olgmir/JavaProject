@@ -21,6 +21,11 @@ public class Player {
         this.position = position;
     }
 
+    public void updatePosition(int x, int y) {
+        this.position.x = x;
+        this.position.y = y;
+    }
+
     public void takeTool(Tool tool) {
         this.inventory.add(tool);
     }
