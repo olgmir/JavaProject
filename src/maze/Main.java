@@ -51,11 +51,33 @@ public class Main {
 
         Game game = new Game(maze, maze.getStart().getPosition(), maze.getEnd().getPosition());
         System.out.println(game.maze.canGoRight(game.player.getPosition()));
-        game.goDown();
+        game.goRight();
+        System.out.println(game.player.getPosition());
+        game.goRight();
+        System.out.println(game.player.getPosition());
+        game.goUp();
+        System.out.println(game.player.getPosition());
+        game.goUp();
+        System.out.println(game.player.getPosition());
+        game.goLeft();
+        System.out.println(game.player.getPosition());
+        game.goLeft();
+        System.out.println(game.player.getPosition());
+        game.goRight();
+        System.out.println(game.player.getPosition());
+        game.goRight();
+        System.out.println(game.player.getPosition());
+        game.goRight();
         System.out.println(game.player.getPosition());
         game.goDown();
         System.out.println(game.player.getPosition());
         game.goRight();
+        System.out.println(game.player.getPosition());
+        game.goUp();
+        System.out.println(game.player.getPosition());
+        game.goUp();
+        System.out.println(game.player.getPosition());
+        game.goUp();
         System.out.println(game.player.getPosition());
     }
 
@@ -66,7 +88,7 @@ public class Main {
         cells.add(new Cell(0, 1, new Wall(), new Wall(), new BreakableWall(), new OpenSide(), new Hammer()));
         cells.add(new Cell(0, 2, new Wall(), new Wall(), new Door(), new BreakableWall(), new Key()));
         cells.add(new Cell(0, 3, new Wall(), new Wall(), new Wall(), new Door()));
-        Maze maze = new Maze(1, 4, cells);
+        Maze maze = new Maze(1, 4);
 //        maze.printMaze();
 
         Game game = new Game(maze, maze.getStart().getPosition(), maze.getEnd().getPosition());

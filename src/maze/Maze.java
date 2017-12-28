@@ -10,25 +10,18 @@ import java.util.List;
 import java.util.Map;
 
 public class Maze {
-    public List<Cell> cells;
+    public Cell[][] cells;
     public int width, height;
 
-    public Maze(int width, int height){
+    public Maze(int height, int width) {
         this.width = width;
         this.height = height;
-        this.cells = new ArrayList<>(width*height);
-        for(int i=0; i < height; i++) {
-            for(int j=0; j < width; j++) {
-                cells.add(new Cell(i, j, new OpenSide(), new OpenSide(), new OpenSide(), new OpenSide()));
-            }
-        }
+        this.cells = new Cell[height][width];
     }
 
-    public Maze(int width, int height, List<Cell> cells) {
-        assert width * height == cells.size();
-        this.width = width;
-        this.height = height;
-        this.cells = cells;
+    public void addCell(Cell cell) {
+        assert this.cells[cell.getPosition().x][cell.getPosition().y] == null;
+        this.cells[cell.getPosition().x][cell.getPosition().y] = cell;
     }
 
     private Position getCoordinates(int index) {
@@ -37,8 +30,8 @@ public class Maze {
         return new Position(x, y);
     }
 
-    public Cell getCell(int row, int column) {
-        return this.cells.get(row * width + column);
+    public Cell getCell(int x, int y) {
+        return this.cells[x][y];
     }
 
     public Cell getCell(Position pos) {
@@ -49,16 +42,16 @@ public class Maze {
         Map<String, Cell> result = new HashMap<>();
 
         if(row == 0) {
-            result.put("Up", null);
-            result.put("Down", getCell(row + 1, column));
-        }
-        else if(row == height - 1) {
-            result.put("Up", getCell(row - 1, column));
+            result.put("Up", getCell(row + 1, column));
             result.put("Down", null);
         }
+        else if(row == height - 1) {
+            result.put("Up", null);
+            result.put("Down", getCell(row - 1, column));
+        }
         else{
-            result.put("Up", getCell(row - 1, column));
-            result.put("Down", getCell(row + 1, column));
+            result.put("Up", getCell(row + 1, column));
+            result.put("Down", getCell(row - 1, column));
         }
 
         if(column == 0) {
@@ -105,7 +98,7 @@ public class Maze {
     }
 
     public void printMaze() {
-        for(int i=0; i < height; i++) {
+        for(int i=height - 1; i >= 0; i--) {
             for(int j=0; j < width; j++) {
                 System.out.print(getCell(i, j));
             }
@@ -114,16 +107,18 @@ public class Maze {
     }
 
     public Cell getStart() {
-        for(Cell cell: cells)
-            if(cell.isStart())
-                return cell;
+        for(int i=0; i < height; i++)
+            for(int j=0; j < width; j++)
+                if(cells[i][j].isStart())
+                return cells[i][j];
         return null;
     }
 
     public Cell getEnd() {
-        for(Cell cell: cells)
-            if(cell.isEnd())
-                return cell;
+        for(int i=0; i < height; i++)
+            for(int j=0; j < width; j++)
+                if(cells[i][j].isEnd())
+                    return cells[i][j];
         return null;
     }
 }
